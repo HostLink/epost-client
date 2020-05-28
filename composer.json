@@ -14,5 +14,13 @@
     ],
     "require": {
         "mathsgod/gql-client": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Epost\\": "src/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit tests"
     }
 }
