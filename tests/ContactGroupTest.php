@@ -15,7 +15,6 @@ final class ContactGroupTest extends TestCase
 
     public function testCreate()
     {
-
         $api = $this->getAPI();
         $c = $api->createContactGroup("raymond test", "remark of raymond test");
 
@@ -28,11 +27,38 @@ final class ContactGroupTest extends TestCase
 
         foreach ($this->getAPI()->listContactGroup() as $g) {
             $this->assertInternalType(IsType::TYPE_INT, $g["contactgroup_id"]);
-
         }
     }
 
-    public function testDelete(){
-        
+    public function testDelete()
+    {
+        $api = $this->getAPI();
+        $c = $api->createContactGroup("raymond create");
+
+        $ret = $api->deleteContactGroup($c["contactgroup_id"]);
+
+        $this->assertTrue($ret);
+    }
+
+    public function testDeleteAll()
+    {
+        $api = $this->getAPI();
+        foreach ($this->getAPI()->listContactGroup() as $g) {
+            $api->deleteContactGroup($g["contactgroup_id"]);
+        }
+
+        $groups = $this->getAPI()->listContactGroup();
+        $this->assertEquals(0, count($groups));
+    }
+
+    public function test_get()
+    {
+        $api = $this->getAPI();
+        $a = $api->createContactGroup("raymond test", "remark of raymond test");
+
+        $b = $api->getContactGroup($a["contactgroup_id"]);
+
+
+        $this->assertEquals($a["name"], $b["name"]);
     }
 }

@@ -13,6 +13,11 @@ class API
         $this->gql = new \GQL\Client(self::SERVER . "?token=$token", [], ["verify" => false]);
     }
 
+    public function getContactGroup(int $contactgroup_id, array $fields = ["contactgroup_id" => true, "name" => true])
+    {
+        $contactgroup = new ContactGroup($this->gql);
+        return $contactgroup->get($contactgroup_id, $fields);
+    }
 
     public function createContactGroup(string $name, string $remark = null, array $contacts = []): array
     {
@@ -26,7 +31,7 @@ class API
         return $contactgroup->delete($contactgroup_id);
     }
 
-    public function listContactGroup(int $first = 25, int $offset = 0, array $fields = ["contactgroup_id", "name"])
+    public function listContactGroup(int $first = 25, int $offset = 0, array $fields = ["contactgroup_id" => true, "name" => true])
     {
         $contactgroup = new ContactGroup($this->gql);
         return $contactgroup->list($first, $offset, $fields);

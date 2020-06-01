@@ -5,21 +5,26 @@ namespace Epost;
 
 class ContactGroup extends GQL
 {
+    public function get(int $contactgroup_id, array $fields)
+    {
+        $gql = $fields;
+        $gql["__args"] = ["contactgroup_id" => $contactgroup_id];
+        $resp = $this->query([
+            "getContactGroup" => $gql
+        ]);
+
+        return $resp["data"]["getContactGroup"];
+    }
+
     public function list(int $first, int $offset, array $fields)
     {
-
-        $fields = array_flip($fields);
-        $fields = array_map(function () {
-            return true;
-        }, $fields);
-
         $gql = $fields;
         $gql["__args"] = [
             "first" => $first,
             "offset" => $offset
         ];
 
-        $resp = $this->gql->query([
+        $resp = $this->query([
             "listContactGroup" => $gql
         ]);
 
@@ -28,7 +33,7 @@ class ContactGroup extends GQL
 
     public function delete(int $contractgroup_id)
     {
-        $resp = $this->gql->mutation([
+        $resp = $this->mutation([
             "deleteContactGroup" => [
                 "__args" => [
                     "contactgroup_id" => $contractgroup_id
@@ -38,9 +43,9 @@ class ContactGroup extends GQL
         return $resp["data"]["deleteContactGroup"];
     }
 
-    public function create(string $name, string $remark)
+    public function create(string $name, string $remark = null)
     {
-        $resp = $this->gql->subscription([
+        $resp = $this->subscription([
             "createContactGroup" => [
                 "__args" => [
                     "name" => $name,
@@ -52,11 +57,5 @@ class ContactGroup extends GQL
             ]
         ]);
         return $resp["data"]["createContactGroup"];
-    }
-
-    public function query(int $first, int $offset)
-    {
-
-        $this->api->query(["ContactGroup"]);
     }
 }

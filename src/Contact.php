@@ -2,11 +2,11 @@
 
 namespace Epost;
 
-class Contact
+class Contact extends GQL
 {
-    public static function Create(int $contactgroup_id, string $name, string $email = null, string $phone = null)
+    public function create(int $contactgroup_id, string $name, string $email = null, string $phone = null)
     {
-        return API::subscription([
+        return $this->subscription([
             "createContact" => [
                 "__args" => [
                     "contactgroup_id" => $contactgroup_id,
