@@ -31,6 +31,14 @@ final class ContactTest extends TestCase
         $this->assertEquals($c["email"], $d["email"]);
         $this->assertEquals($c["contact_id"], $d["contact_id"]);
 
+        //test update
+        $api->updateContact($d["contact_id"], [
+            "name" => "abc123"
+        ]);
+        $e = $api->getContact($d["contact_id"]);
+        $this->assertEquals("abc123", $e["name"]);
+
+
         //test delete
         $ret = $api->deleteContact($c["contact_id"]);
         $this->assertTrue($ret);

@@ -7,6 +7,24 @@ use GQL\Client;
 
 abstract class GQL
 {
+    public function update(int $id, array $data, array $fields)
+    {
+        $class = explode("\\", static::class)[1];
+        $_id = strtolower($class) . "_id";
+
+        $gql = $fields;
+        $gql["__args"] = [
+            $_id => $id,
+            "data" => $data
+        ];
+
+        $resp = $this->mutation([
+            "update{$class}" => $gql
+        ]);
+
+        return $resp["data"]["update{$class}"];
+    }
+
     public function list(int $first, int $offset = 0, array $fields): array
     {
         $class = explode("\\", static::class)[1];

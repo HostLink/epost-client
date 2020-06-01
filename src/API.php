@@ -49,6 +49,12 @@ class API
         return $contact->get($contact_id, $fields);
     }
 
+    public function updateContact(int $contact_id, array $data, $fields = Contact::DEFAULT_FIELDS)
+    {
+        $contact = new Contact($this->gql);
+        return $contact->update($contact_id, $data, $fields);
+    }
+
     public function deleteContact(int $contact_id)
     {
         $contact = new Contact($this->gql);
@@ -59,5 +65,53 @@ class API
     {
         $contact = new Contact($this->gql);
         return $contact->list($first, $offset, $fields);
+    }
+
+    public function createLetter(string $subject, string $content)
+    {
+        $letter = new Letter($this->gql);
+        return $letter->create($subject, $content);
+    }
+
+    public function listLetter(int $first = 25, int $offset = 0, array $fields = Letter::DEFAULT_FIELDS)
+    {
+        $letter = new Letter($this->gql);
+        return $letter->list($first, $offset, $fields);
+    }
+
+    public function getLetter(int $letter_id, array $fields = Letter::DEFAULT_FIELDS)
+    {
+        $letter = new Letter($this->gql);
+        return $letter->get($letter_id, $fields);
+    }
+
+    public function deleteLetter(int $letter_id)
+    {
+        $letter = new Letter($this->gql);
+        return $letter->delete($letter_id);
+    }
+
+    public function createSchedule(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time)
+    {
+        $schedule = new Schedule($this->gql);
+        return $schedule->create($contactgroup_id, $letter_id, $sender_name, $sender_email, $date, $time);
+    }
+
+    public function getSchedule(int $schedule_id, array $fields = Schedule::DEFAULT_FIELDS)
+    {
+        $schedule = new Schedule($this->gql);
+        return $schedule->get($schedule_id, $fields);
+    }
+
+    public function listSchedule(int $first = 25, int $offset = 0, array $fields = Schedule::DEFAULT_FIELDS)
+    {
+        $schedule = new Schedule($this->gql);
+        return $schedule->list($first, $offset, $fields);
+    }
+
+    public function deleteSchedule(int $schedule_id)
+    {
+        $schedule = new Schedule($this->gql);
+        return $schedule->delete($schedule_id);
     }
 }

@@ -24,4 +24,5 @@ class Contact extends GQL
         ]);
         return $ret["data"]["createContact"];
     }
+
 }
