@@ -20,7 +20,7 @@ class API
         return $contactgroup->get($contactgroup_id, $fields);
     }
 
-    public function createContactGroup(string $name, string $remark = null, array $contacts = []): array
+    public function createContactGroup(string $name, string $remark = null): array
     {
         $contactgroup = new ContactGroup($this->gql);
         return $contactgroup->create($name, $remark);
@@ -32,10 +32,10 @@ class API
         return $contactgroup->delete($contactgroup_id);
     }
 
-    public function listContactGroup(int $first = 25, int $offset = 0, array $fields = ContactGroup::DEFAULT_FIELDS)
+    public function listContactGroup(array $filter = [], int $first = 25, int $offset = 0, array $fields = ContactGroup::DEFAULT_FIELDS)
     {
         $contactgroup = new ContactGroup($this->gql);
-        return $contactgroup->list($first, $offset, $fields);
+        return $contactgroup->list($filter, $first, $offset, $fields);
     }
 
     public function updateContactGroup(int $contactgroup_id, array $data, array $fields = ContactGroup::DEFAULT_FIELDS)
@@ -57,7 +57,7 @@ class API
         return $contact->get($contact_id, $fields);
     }
 
-    public function updateContact(int $contact_id, array $data, $fields = Contact::DEFAULT_FIELDS)
+    public function updateContact(int $contact_id, array $data, array $fields = Contact::DEFAULT_FIELDS)
     {
         $contact = new Contact($this->gql);
         return $contact->update($contact_id, $data, $fields);
@@ -69,10 +69,10 @@ class API
         return $contact->delete($contact_id);
     }
 
-    public function listContact(int $first = 25, int $offset = 0, array $fields = Contact::DEFAULT_FIELDS)
+    public function listContact(array $filter = [], int $first = 25, int $offset = 0, array $fields = Contact::DEFAULT_FIELDS)
     {
         $contact = new Contact($this->gql);
-        return $contact->list($first, $offset, $fields);
+        return $contact->list($filter, $first, $offset, $fields);
     }
 
     //--- letter ---
@@ -106,9 +106,7 @@ class API
         return $letter->update($letter_id, $data, $fields);
     }
 
-
-    //---
-
+    //--- Schedule ---
     public function createSchedule(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time)
     {
         $schedule = new Schedule($this->gql);

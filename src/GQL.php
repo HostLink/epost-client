@@ -25,12 +25,13 @@ abstract class GQL
         return $resp["data"]["update{$class}"];
     }
 
-    public function list(int $first, int $offset = 0, array $fields): array
+    public function list(array $filter, int $first, int $offset = 0, array $fields): array
     {
         $class = explode("\\", static::class)[1];
 
         $gql = $fields;
         $gql["__args"] = [
+            "filter" => $filter,
             "first" => $first,
             "offset" => $offset
         ];

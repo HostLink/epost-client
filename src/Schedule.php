@@ -24,4 +24,22 @@ class Schedule extends GQL
         ]);
         return $ret["data"]["createSchedule"];
     }
+
+    public function listDelivery(int $contactgroup_id, int $first, int $offset, string $fields)
+    {
+        $gql = [];
+        $gql["__args"] = [
+            "contactgroup_id" => $contactgroup_id
+        ];
+        $gql["Delivery"] = $fields;
+        $gql["Delivery"]["__args"] = [
+            "first" => $first,
+            "offset" => $offset
+        ];
+
+        $ret = $this->query([
+            "getSchedule" => $gql
+        ]);
+        return $ret["data"]["getSchedule"]["Delivery"];
+    }
 }
