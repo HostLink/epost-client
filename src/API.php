@@ -39,20 +39,19 @@ class API
 
     public function createContact(int $contactgroup_id, string $name, string $email = null, string $phone = null)
     {
-
-        return $this->gql->subscription([
-            "createContact" => [
-                "__args" => [
-                    "contactgroup_id" => $contactgroup_id,
-                    "name" => $name,
-                    "email" => $email,
-                    "phone" => $phone
-                ]
-            ]
-        ]);
+        $contact = new Contact($this->gql);
+        return $contact->create($contactgroup_id, $name, $email, $phone);
     }
 
-    public function getContact($contact_id, array $fields)
+    public function getContact(int $contact_id, array $fields = ["contact_id" => true, "contactgroup_id" => true, "name" => true, "email" => true, "phone" => true])
     {
+        $contact = new Contact($this->gql);
+        return $contact->get($contact_id, $fields);
+    }
+
+    public function deleteContact(int $contact_id)
+    {
+        $contact = new Contact($this->gql);
+        return $contact->delete($contact_id);
     }
 }

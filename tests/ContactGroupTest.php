@@ -55,10 +55,32 @@ final class ContactGroupTest extends TestCase
     {
         $api = $this->getAPI();
         $a = $api->createContactGroup("raymond test", "remark of raymond test");
-
         $b = $api->getContactGroup($a["contactgroup_id"]);
 
 
         $this->assertEquals($a["name"], $b["name"]);
+    }
+
+
+    public function test_get_with_contact()
+    {
+        $api = $this->getAPI();
+        $a = $api->createContactGroup("raymond test", "remark of raymond test");
+        $api->createContact($a["contactgroup_id"], "raymond", "raymond@hostlink.com.hk", "12345678");
+
+        $cg = $api->getContactGroup($a["contactgroup_id"], [
+            "Contact" => [
+                "contact_id" => true,
+                "name" => true,
+                "email" => true,
+                "phone" => true
+            ]
+        ]);
+
+
+        $this->assertArrayHasKey("Contact", $cg);
+        $this->assertEquals("raymond", $cg["Contact"][0]["name"]);
+        $this->assertEquals("raymond@hostlink.com.hk", $cg["Contact"][0]["email"]);
+        $this->assertEquals("12345678", $cg["Contact"][0]["phone"]);
     }
 }
