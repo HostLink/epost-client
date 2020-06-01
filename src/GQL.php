@@ -10,7 +10,6 @@ abstract class GQL
     public function list(int $first, int $offset = 0, array $fields): array
     {
         $class = explode("\\", static::class)[1];
-        $_id = strtolower($class) . "_id";
 
         $gql = $fields;
         $gql["__args"] = [
@@ -25,7 +24,7 @@ abstract class GQL
         return $resp["data"]["list{$class}"];
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $class = explode("\\", static::class)[1];
         $_id = strtolower($class) . "_id";
@@ -37,24 +36,19 @@ abstract class GQL
         return $resp["data"]["delete{$class}"];
     }
 
-
-    public function __call(string $name, $arguments)
+    public function get(int $id, array $fields)
     {
-        if ($name == "get") {
-            $class = explode("\\", static::class)[1];
-            $id = strtolower($class) . "_id";
-            $gql = $arguments[1];
-            $gql["__args"] = [];
-            $gql["__args"][$id] = $arguments[0];
+        $class = explode("\\", static::class)[1];
+        $_id = strtolower($class) . "_id";
+        $gql = $fields;
+        $gql["__args"] = [];
+        $gql["__args"][$_id] = $id;
 
-            $resp = $this->gql->query([
-                "get{$class}" => $gql
-            ]);
+        $resp = $this->gql->query([
+            "get{$class}" => $gql
+        ]);
 
-            return $resp["data"]["get{$class}"];
-        }
-
-        throw new Exception("method $name not found");
+        return $resp["data"]["get{$class}"];
     }
 
     public function __construct(Client $gql)
