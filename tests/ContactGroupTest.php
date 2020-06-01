@@ -56,9 +56,13 @@ final class ContactGroupTest extends TestCase
         $api = $this->getAPI();
         $a = $api->createContactGroup("raymond test", "remark of raymond test");
         $b = $api->getContactGroup($a["contactgroup_id"]);
-
-
         $this->assertEquals($a["name"], $b["name"]);
+
+        //test update
+
+        $api->updateContactGroup($b["contactgroup_id"], ["name" => "hello group"]);
+        $c = $api->getContactGroup($b["contactgroup_id"]);
+        $this->assertEquals("hello group", $c["name"]);
     }
 
 

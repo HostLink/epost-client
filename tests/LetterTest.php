@@ -25,6 +25,10 @@ final class LetterTest extends TestCase
         $b = $api->getLetter($letter["letter_id"]);
         $this->assertEquals($letter, $b);
 
+        //update
+        $api->updateLetter($b["letter_id"], ["subject" => "hello 123"]);
+        $this->assertEquals("hello 123", $api->getLetter($b["letter_id"])["subject"]);
+
         //list
         $letters = $api->listLetter();
         $this->assertGreaterThan(0, count($letters));

@@ -13,6 +13,7 @@ class API
         $this->gql = new \GQL\Client(self::SERVER . "?token=$token", [], ["verify" => false]);
     }
 
+    //--- contact group ---
     public function getContactGroup(int $contactgroup_id, array $fields = ContactGroup::DEFAULT_FIELDS)
     {
         $contactgroup = new ContactGroup($this->gql);
@@ -37,6 +38,13 @@ class API
         return $contactgroup->list($first, $offset, $fields);
     }
 
+    public function updateContactGroup(int $contactgroup_id, array $data, array $fields = ContactGroup::DEFAULT_FIELDS)
+    {
+        $contactgroup = new ContactGroup($this->gql);
+        return $contactgroup->update($contactgroup_id, $data, $fields);
+    }
+
+    //--- contact ---
     public function createContact(int $contactgroup_id, string $name, string $email = null, string $phone = null)
     {
         $contact = new Contact($this->gql);
@@ -67,6 +75,7 @@ class API
         return $contact->list($first, $offset, $fields);
     }
 
+    //--- letter ---
     public function createLetter(string $subject, string $content)
     {
         $letter = new Letter($this->gql);
@@ -90,6 +99,15 @@ class API
         $letter = new Letter($this->gql);
         return $letter->delete($letter_id);
     }
+
+    public function updateLetter(int $letter_id, array $data, array $fields = Letter::DEFAULT_FIELDS)
+    {
+        $letter = new Letter($this->gql);
+        return $letter->update($letter_id, $data, $fields);
+    }
+
+
+    //---
 
     public function createSchedule(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time)
     {
