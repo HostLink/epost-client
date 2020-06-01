@@ -54,4 +54,10 @@ class API
         $contact = new Contact($this->gql);
         return $contact->delete($contact_id);
     }
+
+    public function listContact(int $first = 25, int $offset = 0, array $fields = Contact::DEFAULT_FIELDS)
+    {
+        $contact = new Contact($this->gql);
+        return $contact->list($first, $offset, $fields);
+    }
 }

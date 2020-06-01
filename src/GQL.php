@@ -7,7 +7,25 @@ use GQL\Client;
 
 abstract class GQL
 {
-    public  function delete($id)
+    public function list(int $first, int $offset = 0, array $fields): array
+    {
+        $class = explode("\\", static::class)[1];
+        $_id = strtolower($class) . "_id";
+
+        $gql = $fields;
+        $gql["__args"] = [
+            "first" => $first,
+            "offset" => $offset
+        ];
+
+        $resp = $this->query([
+            "list{$class}" => $gql
+        ]);
+
+        return $resp["data"]["list{$class}"];
+    }
+
+    public function delete($id)
     {
         $class = explode("\\", static::class)[1];
         $_id = strtolower($class) . "_id";

@@ -4,8 +4,8 @@ namespace Epost;
 
 class Contact extends GQL
 {
-    const DEFAULT_FIELDS = ["name" => true, "email" => true, "phone" => true];
-    
+    const DEFAULT_FIELDS = ["contact_id" => true, "name" => true, "email" => true, "phone" => true];
+
     public function create(int $contactgroup_id, string $name, string $email = null, string $phone = null)
     {
         $ret = $this->subscription([

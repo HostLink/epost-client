@@ -35,10 +35,31 @@ final class ContactTest extends TestCase
         $ret = $api->deleteContact($c["contact_id"]);
         $this->assertTrue($ret);
 
-
         //contact should be deleted
         $ret = $api->getContactGroup($cg["contactgroup_id"], ["Contact" => Contact::DEFAULT_FIELDS]);
         $this->assertArrayHasKey("Contact", $ret);
         $this->assertCount(0, $ret["Contact"]);
+    }
+
+    public function test_list()
+    {
+
+        $api = $this->getAPI();
+
+        //delete all contacts
+        $contacts = $api->listContact();
+        foreach ($contacts as $contact) {
+            $api->deleteContact($contact["contact_id"]);
+        }
+
+        //create group first 
+        $cg = $api->createContactGroup("test contact");
+        $c = $api->createContact($cg["contactgroup_id"], "raymond", "raymond@hostlink.com.hk");
+        $this->assertEquals("raymond", $c["name"]);
+        $this->assertEquals("raymond@hostlink.com.hk", $c["email"]);
+        $this->assertNotEmpty($c["contact_id"]);
+
+        $contacts = $api->listContact();
+        $this->assertCount(1, $contacts);
     }
 }
