@@ -33,6 +33,13 @@ final class LetterTest extends TestCase
         $letters = $api->listLetter();
         $this->assertGreaterThan(0, count($letters));
 
+        //delete schedule
+
+        $schedules = $api->listSchedule();
+        foreach ($schedules as $schedule) {
+            $this->assertTrue($api->deleteSchedule($schedule["schedule_id"]));
+        }
+        
         //delete all
         foreach ($letters as $letter) {
             $this->assertTrue($api->deleteLetter($letter["letter_id"]));

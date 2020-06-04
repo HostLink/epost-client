@@ -82,10 +82,10 @@ class API
         return $letter->create($subject, $content);
     }
 
-    public function listLetter(int $first = 25, int $offset = 0, array $fields = Letter::DEFAULT_FIELDS)
+    public function listLetter(array $filter = [], int $first = 25, int $offset = 0, array $fields = Letter::DEFAULT_FIELDS)
     {
         $letter = new Letter($this->gql);
-        return $letter->list($first, $offset, $fields);
+        return $letter->list($filter, $first, $offset, $fields);
     }
 
     public function getLetter(int $letter_id, array $fields = Letter::DEFAULT_FIELDS)
@@ -119,15 +119,21 @@ class API
         return $schedule->get($schedule_id, $fields);
     }
 
-    public function listSchedule(int $first = 25, int $offset = 0, array $fields = Schedule::DEFAULT_FIELDS)
+    public function listSchedule(array $filter = [], int $first = 25, int $offset = 0, array $fields = Schedule::DEFAULT_FIELDS)
     {
         $schedule = new Schedule($this->gql);
-        return $schedule->list($first, $offset, $fields);
+        return $schedule->list($filter, $first, $offset, $fields);
     }
 
     public function deleteSchedule(int $schedule_id)
     {
         $schedule = new Schedule($this->gql);
         return $schedule->delete($schedule_id);
+    }
+
+    public function listDelivery(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = Delivery::DEFAULT_FIELDS)
+    {
+        $delivery = new Delivery($this->gql);
+        return $delivery->list($filter, $fisrt, $offset, $fields);
     }
 }

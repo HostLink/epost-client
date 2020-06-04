@@ -87,4 +87,20 @@ final class ContactGroupTest extends TestCase
         $this->assertEquals("raymond@hostlink.com.hk", $cg["Contact"][0]["email"]);
         $this->assertEquals("12345678", $cg["Contact"][0]["phone"]);
     }
+
+    public function test_list_filter()
+    {
+        $api = $this->getAPI();
+        $api->createContactGroup("hello abcd");
+        $contactgroups = $api->listContactGroup([
+            "name" => "hello abcd"
+        ]);
+
+        $this->assertEquals(1, count($contactgroups));
+
+        $contactgroups = $api->listContactGroup([
+            "name" => "xabcd"
+        ]);
+        $this->assertEquals(0, count($contactgroups));
+    }
 }
