@@ -136,6 +136,15 @@ class API
         $delivery = new Delivery($this->gql);
         return $delivery->list($filter, $fisrt, $offset, $fields);
     }
-    
-    
+
+    public function listSMS(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = SMS::DEFAULT_FIELDS)
+    {
+        $sms = new SMS($this->gql);
+        return $sms->list($filter, $fisrt, $offset, $fields);
+    }
+    public function listSMSSchedule(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = SMSSchedule::DEFAULT_FIELDS)
+    {
+        $obj = new SMSSchedule($this->gql);
+        return $obj->list($filter, $fisrt, $offset, $fields);
+    }
 }

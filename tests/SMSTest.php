@@ -3,7 +3,7 @@
 use Epost\API;
 use PHPUnit\Framework\TestCase;
 
-final class DeliveryTest extends TestCase
+final class SMSTest extends TestCase
 {
     public function getAPI()
     {
@@ -15,8 +15,8 @@ final class DeliveryTest extends TestCase
     {
 
         $api = $this->getAPI();
-        $deliverys = $api->listDelivery();
+        $smss = $api->listSMS();
 
-        $this->assertGreaterThan(0, count($deliverys));
+        $this->assertGreaterThan(0, count($smss));
     }
 }
