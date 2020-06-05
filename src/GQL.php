@@ -22,6 +22,10 @@ abstract class GQL
             "update{$class}" => $gql
         ]);
 
+        if ($resp["error"]) {
+            throw new Exception($resp["error"]["message"]);
+        }
+
         return $resp["data"]["update{$class}"];
     }
 
@@ -39,6 +43,10 @@ abstract class GQL
         $resp = $this->query([
             "list{$class}" => $gql
         ]);
+
+        if ($resp["error"]) {
+            throw new Exception($resp["error"]["message"]);
+        }
 
         return $resp["data"]["list{$class}"];
     }
@@ -66,6 +74,11 @@ abstract class GQL
         $resp = $this->gql->query([
             "get{$class}" => $gql
         ]);
+
+
+        if ($resp["error"]) {
+            throw new Exception($resp["error"]["message"]);
+        }
 
         return $resp["data"]["get{$class}"];
     }

@@ -13,10 +13,19 @@ final class SMSScheduleTest extends TestCase
 
     public function test_list()
     {
-
         $api = $this->getAPI();
-        $smss = $api->listSMSSchedule();
+        $objs = $api->listSMSSchedule();
+        $this->assertGreaterThan(0, count($objs));
+    }
 
-        $this->assertGreaterThan(0, count($smss));
+    public function test_get()
+    {
+        $api = $this->getAPI();
+
+        $a = $api->listSMSSchedule()[0];
+
+        $b = $api->getSMSSchedule($a["smsschedule_id"]);
+
+        $this->assertEquals($a, $b);
     }
 }

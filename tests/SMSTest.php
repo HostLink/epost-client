@@ -19,4 +19,15 @@ final class SMSTest extends TestCase
 
         $this->assertGreaterThan(0, count($smss));
     }
+
+    public function test_get()
+    {
+        $api = $this->getAPI();
+
+        $a = $api->listSMS()[0];
+
+        $b = $api->getSMS($a["sms_id"]);
+
+        $this->assertEquals($a, $b);
+    }
 }

@@ -137,11 +137,24 @@ class API
         return $delivery->list($filter, $fisrt, $offset, $fields);
     }
 
+    public function getSMS(int $sms_id, array $fields = SMS::DEFAULT_FIELDS)
+    {
+        $obj = new SMS($this->gql);
+        return $obj->get($sms_id, $fields);
+    }
+
     public function listSMS(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = SMS::DEFAULT_FIELDS)
     {
         $sms = new SMS($this->gql);
         return $sms->list($filter, $fisrt, $offset, $fields);
     }
+
+    public function getSMSSchedule(int $smsschedule_id, array $fields = SMSSchedule::DEFAULT_FIELDS)
+    {
+        $obj = new SMSSchedule($this->gql);
+        return $obj->get($smsschedule_id, $fields);
+    }
+
     public function listSMSSchedule(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = SMSSchedule::DEFAULT_FIELDS)
     {
         $obj = new SMSSchedule($this->gql);
