@@ -41,6 +41,12 @@ class QueryList implements IteratorAggregate
         return $this;
     }
 
+    public function orderBy(array $order)
+    {
+        $this->orderby[] = $order;
+        return $this;
+    }
+
     public function getIterator()
     {
         $gql = $this->fields;
@@ -57,11 +63,15 @@ class QueryList implements IteratorAggregate
             $gql["__args"]["filter"] = $this->filter;
         }
 
+        if ($this->orderby) {
+            $gql["__args"]["orderBy"] = $this->orderby;
+        }
+
         $resp = $this->gql->query([
             "list{$this->name}" => $gql
         ]);
 
-        if($resp["error"]){
+        if ($resp["error"]) {
             throw new Exception($resp["error"]["message"]);
         }
 
