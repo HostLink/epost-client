@@ -4,6 +4,8 @@ namespace Epost;
 
 class Demographic extends GQL
 {
+    const DEFAULT_FIELDS = ["name" => true];
+
     public function add(string $name)
     {
         $ret = $this->subscription([
@@ -18,12 +20,10 @@ class Demographic extends GQL
         return $ret["data"]["addDemographic"];
     }
 
-    public function list(array $filter = [], int $first = 0, int $offset = 0, array $fields = []): array
+    public function list(array $fields = self::DEFAULT_FIELDS): array
     {
         $ret = $this->query([
-            "listDemographic" => [
-                "name" => true
-            ]
+            "listDemographic" => $fields
         ]);
 
         return array_map(function ($o) {
