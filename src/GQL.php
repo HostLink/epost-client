@@ -29,26 +29,13 @@ abstract class GQL
         return $resp["data"]["update{$class}"];
     }
 
-    public function list(array $filter, int $first, int $offset = 0, array $fields): array
+    public function list(array $fields)
     {
         $class = explode("\\", static::class)[1];
-
-        $gql = $fields;
-        $gql["__args"] = [
-            "filter" => $filter,
-            "first" => $first,
-            "offset" => $offset
-        ];
-
-        $resp = $this->query([
-            "list{$class}" => $gql
-        ]);
-
-        if ($resp["error"]) {
-            throw new Exception($resp["error"]["message"]);
-        }
-
-        return $resp["data"]["list{$class}"];
+        $q = new QueryList($this->gql, "list{$class}");
+        $q->fields = $fields;
+        $q->limit = 25;
+        return $q;
     }
 
     public function delete(int $id)

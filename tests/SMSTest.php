@@ -24,7 +24,7 @@ final class SMSTest extends TestCase
     {
         $api = $this->getAPI();
 
-        $a = $api->listSMS()[0];
+        $a = $api->listSMS()->toArray()[0];
 
         $b = $api->getSMS($a["sms_id"]);
 

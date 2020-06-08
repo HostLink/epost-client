@@ -22,7 +22,7 @@ final class SMSScheduleTest extends TestCase
     {
         $api = $this->getAPI();
 
-        $a = $api->listSMSSchedule()[0];
+        $a = $api->listSMSSchedule()->toArray()[0];
 
         $b = $api->getSMSSchedule($a["smsschedule_id"]);
 

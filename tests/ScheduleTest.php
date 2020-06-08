@@ -35,7 +35,7 @@ final class ScheduleTest extends TestCase
         $this->assertEquals($schedule, $b);
 
         //list
-        $schedules = $api->listSchedule();
+        $schedules = $api->listSchedule()->toArray();
         $this->assertGreaterThan(0, count($schedules));
 
         //delete all
@@ -44,7 +44,7 @@ final class ScheduleTest extends TestCase
         }
 
         //should be zero
-        $schedules = $api->listSchedule();
+        $schedules = $api->listSchedule()->toArray();
         $this->assertEquals(0, count($schedules));
     }
 }

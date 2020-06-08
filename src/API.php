@@ -13,6 +13,7 @@ class API
         $this->gql = new \GQL\Client(self::SERVER . "?token=$token", [], ["verify" => false]);
     }
 
+
     //--- contact group ---
     public function getContactGroup(int $contactgroup_id, array $fields = ContactGroup::DEFAULT_FIELDS)
     {
@@ -32,10 +33,10 @@ class API
         return $contactgroup->delete($contactgroup_id);
     }
 
-    public function listContactGroup(array $filter = [], int $first = 25, int $offset = 0, array $fields = ContactGroup::DEFAULT_FIELDS)
+    public function listContactGroup(array $fields = ContactGroup::DEFAULT_FIELDS)
     {
         $contactgroup = new ContactGroup($this->gql);
-        return $contactgroup->list($filter, $first, $offset, $fields);
+        return $contactgroup->list($fields);
     }
 
     public function updateContactGroup(int $contactgroup_id, array $data, array $fields = ContactGroup::DEFAULT_FIELDS)
@@ -69,10 +70,10 @@ class API
         return $contact->delete($contact_id);
     }
 
-    public function listContact(array $filter = [], int $first = 25, int $offset = 0, array $fields = Contact::DEFAULT_FIELDS)
+    public function listContact(array $fields = Contact::DEFAULT_FIELDS)
     {
         $contact = new Contact($this->gql);
-        return $contact->list($filter, $first, $offset, $fields);
+        return $contact->list($fields);
     }
 
     //--- letter ---
@@ -82,10 +83,10 @@ class API
         return $letter->add($subject, $content);
     }
 
-    public function listLetter(array $filter = [], int $first = 25, int $offset = 0, array $fields = Letter::DEFAULT_FIELDS)
+    public function listLetter(array $fields = Letter::DEFAULT_FIELDS)
     {
         $letter = new Letter($this->gql);
-        return $letter->list($filter, $first, $offset, $fields);
+        return $letter->list($fields);
     }
 
     public function getLetter(int $letter_id, array $fields = Letter::DEFAULT_FIELDS)
@@ -119,10 +120,10 @@ class API
         return $schedule->get($schedule_id, $fields);
     }
 
-    public function listSchedule(array $filter = [], int $first = 25, int $offset = 0, array $fields = Schedule::DEFAULT_FIELDS)
+    public function listSchedule(array $fields = Schedule::DEFAULT_FIELDS)
     {
         $schedule = new Schedule($this->gql);
-        return $schedule->list($filter, $first, $offset, $fields);
+        return $schedule->list($fields);
     }
 
     public function deleteSchedule(int $schedule_id)
@@ -131,10 +132,10 @@ class API
         return $schedule->delete($schedule_id);
     }
 
-    public function listDelivery(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = Delivery::DEFAULT_FIELDS)
+    public function listDelivery(array $fields = Delivery::DEFAULT_FIELDS)
     {
         $delivery = new Delivery($this->gql);
-        return $delivery->list($filter, $fisrt, $offset, $fields);
+        return $delivery->list($fields);
     }
 
     public function getSMS(int $sms_id, array $fields = SMS::DEFAULT_FIELDS)
@@ -143,10 +144,10 @@ class API
         return $obj->get($sms_id, $fields);
     }
 
-    public function listSMS(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = SMS::DEFAULT_FIELDS)
+    public function listSMS(array $fields = SMS::DEFAULT_FIELDS)
     {
         $sms = new SMS($this->gql);
-        return $sms->list($filter, $fisrt, $offset, $fields);
+        return $sms->list($fields);
     }
 
     public function getSMSSchedule(int $smsschedule_id, array $fields = SMSSchedule::DEFAULT_FIELDS)
@@ -155,16 +156,16 @@ class API
         return $obj->get($smsschedule_id, $fields);
     }
 
-    public function listSMSSchedule(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = SMSSchedule::DEFAULT_FIELDS)
+    public function listSMSSchedule(array $fields = SMSSchedule::DEFAULT_FIELDS)
     {
         $obj = new SMSSchedule($this->gql);
-        return $obj->list($filter, $fisrt, $offset, $fields);
+        return $obj->list($fields);
     }
 
-    public function listContactReject(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = ContactReject::DEFAULT_FIELDS)
+    public function listContactReject(array $fields = ContactReject::DEFAULT_FIELDS)
     {
         $obj = new ContactGroup($this->gql);
-        return $obj->list($filter, $fisrt, $offset, $fields);
+        return $obj->list($fields);
     }
 
     //--- demographic --

@@ -47,7 +47,7 @@ final class ContactGroupTest extends TestCase
             $api->deleteContactGroup($g["contactgroup_id"]);
         }
 
-        $groups = $this->getAPI()->listContactGroup();
+        $groups = $this->getAPI()->listContactGroup()->toArray();
         $this->assertEquals(0, count($groups));
     }
 
@@ -90,17 +90,24 @@ final class ContactGroupTest extends TestCase
 
     public function test_list_filter()
     {
+
         $api = $this->getAPI();
+
+        //remove all
+        foreach ($api->listContactGroup() as $cg) {
+            $api->deleteContactGroup($cg["contactgroup_id"]);
+        }
+
         $api->addContactGroup("hello abcd");
-        $contactgroups = $api->listContactGroup([
+        $contactgroups = $api->listContactGroup()->filter([
             "name" => "hello abcd"
         ]);
 
-        $this->assertEquals(1, count($contactgroups));
+        $this->assertCount(1, $contactgroups);
 
-        $contactgroups = $api->listContactGroup([
-            "name" => "xabcd"
+        $contactgroups = $api->listContactGroup()->filter([
+            "name" => "xabcd123"
         ]);
-        $this->assertEquals(0, count($contactgroups));
+        $this->assertCount(0, $contactgroups);
     }
 }
