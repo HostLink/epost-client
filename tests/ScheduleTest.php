@@ -17,11 +17,11 @@ final class ScheduleTest extends TestCase
 
 
         //create group
-        $contactgroup = $api->createContactGroup("raymond");
-        $letter = $api->createLetter("raymond testing", "this is a testing email");
+        $contactgroup = $api->addContactGroup("raymond");
+        $letter = $api->addLetter("raymond testing", "this is a testing email");
 
 
-        $schedule = $api->createSchedule([$contactgroup["contactgroup_id"]], $letter["letter_id"], "raymond", "raymond@hostlink.com.hk", "2099-12-01", "10:00:00");
+        $schedule = $api->addSchedule([$contactgroup["contactgroup_id"]], $letter["letter_id"], "raymond", "raymond@hostlink.com.hk", "2099-12-01", "10:00:00");
 
         $this->assertEquals($letter["letter_id"], $schedule["letter_id"]);
         $this->assertEquals("raymond", $schedule["sender_name"]);

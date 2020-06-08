@@ -19,8 +19,8 @@ final class ContactTest extends TestCase
         $api = $this->getAPI();
 
         //create group first 
-        $cg = $api->createContactGroup("test contact");
-        $c = $api->createContact($cg["contactgroup_id"], "raymond", "raymond@hostlink.com.hk");
+        $cg = $api->addContactGroup("test contact");
+        $c = $api->addContact($cg["contactgroup_id"], "raymond", "raymond@hostlink.com.hk");
         $this->assertEquals("raymond", $c["name"]);
         $this->assertEquals("raymond@hostlink.com.hk", $c["email"]);
         $this->assertNotEmpty($c["contact_id"]);
@@ -61,8 +61,8 @@ final class ContactTest extends TestCase
         }
 
         //create group first 
-        $cg = $api->createContactGroup("test contact");
-        $c = $api->createContact($cg["contactgroup_id"], "raymond", "raymond@hostlink.com.hk");
+        $cg = $api->addContactGroup("test contact");
+        $c = $api->addContact($cg["contactgroup_id"], "raymond", "raymond@hostlink.com.hk");
         $this->assertEquals("raymond", $c["name"]);
         $this->assertEquals("raymond@hostlink.com.hk", $c["email"]);
         $this->assertNotEmpty($c["contact_id"]);

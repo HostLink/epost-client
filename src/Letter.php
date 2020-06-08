@@ -6,10 +6,10 @@ class Letter extends GQL
 {
     const DEFAULT_FIELDS = ["letter_id" => true, "subject" => true];
 
-    public function create(string $subject, string $content)
+    public function add(string $subject, string $content)
     {
         $ret = $this->subscription([
-            "createLetter" => [
+            "addLetter" => [
                 "__args" => [
                     "subject" => $subject,
                     "content" => $content
@@ -18,6 +18,6 @@ class Letter extends GQL
                 "subject" => true
             ]
         ]);
-        return $ret["data"]["createLetter"];
+        return $ret["data"]["addLetter"];
     }
 }

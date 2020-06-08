@@ -7,10 +7,10 @@ class ContactGroup extends GQL
 {
     const DEFAULT_FIELDS = ["contactgroup_id" => true, "name" => true];
 
-    public function create(string $name, string $remark = null)
+    public function add(string $name, string $remark = null)
     {
         $resp = $this->subscription([
-            "createContactGroup" => [
+            "addContactGroup" => [
                 "__args" => [
                     "name" => $name,
                     "remark" => $remark
@@ -20,6 +20,6 @@ class ContactGroup extends GQL
                 "remark" => true,
             ]
         ]);
-        return $resp["data"]["createContactGroup"];
+        return $resp["data"]["addContactGroup"];
     }
 }

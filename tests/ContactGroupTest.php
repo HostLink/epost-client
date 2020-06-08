@@ -16,7 +16,7 @@ final class ContactGroupTest extends TestCase
     public function testCreate()
     {
         $api = $this->getAPI();
-        $c = $api->createContactGroup("raymond test", "remark of raymond test");
+        $c = $api->addContactGroup("raymond test", "remark of raymond test");
 
         $this->assertEquals("raymond test", $c["name"]);
         $this->assertEquals("remark of raymond test", $c["remark"]);
@@ -33,7 +33,7 @@ final class ContactGroupTest extends TestCase
     public function testDelete()
     {
         $api = $this->getAPI();
-        $c = $api->createContactGroup("raymond create");
+        $c = $api->addContactGroup("raymond create");
 
         $ret = $api->deleteContactGroup($c["contactgroup_id"]);
 
@@ -54,7 +54,7 @@ final class ContactGroupTest extends TestCase
     public function test_get()
     {
         $api = $this->getAPI();
-        $a = $api->createContactGroup("raymond test", "remark of raymond test");
+        $a = $api->addContactGroup("raymond test", "remark of raymond test");
         $b = $api->getContactGroup($a["contactgroup_id"]);
         $this->assertEquals($a["name"], $b["name"]);
 
@@ -69,8 +69,8 @@ final class ContactGroupTest extends TestCase
     public function test_get_with_contact()
     {
         $api = $this->getAPI();
-        $a = $api->createContactGroup("raymond test", "remark of raymond test");
-        $api->createContact($a["contactgroup_id"], "raymond", "raymond@hostlink.com.hk", "12345678");
+        $a = $api->addContactGroup("raymond test", "remark of raymond test");
+        $api->addContact($a["contactgroup_id"], "raymond", "raymond@hostlink.com.hk", "12345678");
 
         $cg = $api->getContactGroup($a["contactgroup_id"], [
             "Contact" => [
@@ -91,7 +91,7 @@ final class ContactGroupTest extends TestCase
     public function test_list_filter()
     {
         $api = $this->getAPI();
-        $api->createContactGroup("hello abcd");
+        $api->addContactGroup("hello abcd");
         $contactgroups = $api->listContactGroup([
             "name" => "hello abcd"
         ]);

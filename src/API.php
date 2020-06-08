@@ -20,10 +20,10 @@ class API
         return $contactgroup->get($contactgroup_id, $fields);
     }
 
-    public function createContactGroup(string $name, string $remark = null): array
+    public function addContactGroup(string $name, string $remark = null): array
     {
         $contactgroup = new ContactGroup($this->gql);
-        return $contactgroup->create($name, $remark);
+        return $contactgroup->add($name, $remark);
     }
 
     public function deleteContactGroup(int $contactgroup_id): bool
@@ -45,10 +45,10 @@ class API
     }
 
     //--- contact ---
-    public function createContact(int $contactgroup_id, string $name, string $email = null, string $phone = null)
+    public function addContact(int $contactgroup_id, string $name, string $email = null, string $phone = null)
     {
         $contact = new Contact($this->gql);
-        return $contact->create($contactgroup_id, $name, $email, $phone);
+        return $contact->add($contactgroup_id, $name, $email, $phone);
     }
 
     public function getContact(int $contact_id, array $fields = Contact::DEFAULT_FIELDS)
@@ -76,10 +76,10 @@ class API
     }
 
     //--- letter ---
-    public function createLetter(string $subject, string $content)
+    public function addLetter(string $subject, string $content)
     {
         $letter = new Letter($this->gql);
-        return $letter->create($subject, $content);
+        return $letter->add($subject, $content);
     }
 
     public function listLetter(array $filter = [], int $first = 25, int $offset = 0, array $fields = Letter::DEFAULT_FIELDS)
@@ -107,10 +107,10 @@ class API
     }
 
     //--- Schedule ---
-    public function createSchedule(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time)
+    public function addSchedule(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time)
     {
         $schedule = new Schedule($this->gql);
-        return $schedule->create($contactgroup_id, $letter_id, $sender_name, $sender_email, $date, $time);
+        return $schedule->add($contactgroup_id, $letter_id, $sender_name, $sender_email, $date, $time);
     }
 
     public function getSchedule(int $schedule_id, array $fields = Schedule::DEFAULT_FIELDS)
@@ -160,4 +160,11 @@ class API
         $obj = new SMSSchedule($this->gql);
         return $obj->list($filter, $fisrt, $offset, $fields);
     }
+
+    public function listContactReject(array $filter = [], int $fisrt = 25, int $offset = 0, array $fields = ContactReject::DEFAULT_FIELDS)
+    {
+        $obj = new ContactGroup($this->gql);
+        return $obj->list($filter, $fisrt, $offset, $fields);
+    }
+
 }

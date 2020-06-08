@@ -17,7 +17,7 @@ final class LetterTest extends TestCase
 
 
         //create
-        $letter = $api->createLetter("hello", "test is a test mail");
+        $letter = $api->addLetter("hello", "test is a test mail");
         $this->assertEquals("hello", $letter["subject"]);
         $this->assertNotEmpty($letter["letter_id"]);
 
