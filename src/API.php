@@ -167,4 +167,16 @@ class API
         return $obj->list($filter, $fisrt, $offset, $fields);
     }
 
+    //--- demographic --
+    public function addDemographic(string $name)
+    {
+        $obj = new Demographic($this->gql);
+        return $obj->add($name);
+    }
+
+    public function listDemographic()
+    {
+        $obj = new Demographic($this->gql);
+        return $obj->list();
+    }
 }
