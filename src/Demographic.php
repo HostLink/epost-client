@@ -22,10 +22,25 @@ class Demographic extends GQL
     {
         $ret = $this->query([
             "listDemographic" => [
-                "demographic_id" => true,
                 "name" => true
             ]
         ]);
-        return $ret["data"]["listDemographic"];
+
+        return array_map(function ($o) {
+            return $o["name"];
+        }, $ret["data"]["listDemographic"]);
+    }
+
+    public function remove(string $name)
+    {
+        $ret = $this->mutation([
+            "deleteDemographic" => [
+                "__args" => [
+                    "name" => $name
+                ]
+            ]
+        ]);
+
+        return $ret["data"]["deleteDemographic"];
     }
 }

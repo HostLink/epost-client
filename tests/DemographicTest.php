@@ -13,10 +13,17 @@ final class DemographicTest extends TestCase
 
     public function test_list()
     {
-
         $api = $this->getAPI();
-        $datas = $api->listDemographic();
 
+        $api->addDemographic("hello");
+        $datas = $api->listDemographic();
         $this->assertGreaterThan(0, $datas);
+
+
+        $api->deleteDemographic("hello");
+
+        $datas2 = $api->listDemographic();
+
+        $this->assertLessThan(count($datas), count($datas2));
     }
 }

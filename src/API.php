@@ -179,4 +179,10 @@ class API
         $obj = new Demographic($this->gql);
         return $obj->list();
     }
+
+    public function deleteDemographic(string $name)
+    {
+        $obj = new Demographic($this->gql);
+        return $obj->remove($name);
+    }
 }
