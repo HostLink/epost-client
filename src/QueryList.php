@@ -3,6 +3,7 @@
 namespace Epost;
 
 use ArrayIterator;
+use Exception;
 use IteratorAggregate;
 use GQL\Client;
 
@@ -59,6 +60,11 @@ class QueryList implements IteratorAggregate
         $resp = $this->gql->query([
             "list{$this->name}" => $gql
         ]);
+
+        if($resp["error"]){
+            throw new Exception($resp["error"]["message"]);
+        }
+
 
         return new ArrayIterator($resp["data"]["list{$this->name}"]);
     }
