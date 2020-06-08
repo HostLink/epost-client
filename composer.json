@@ -1,5 +1,5 @@
 {
-    "name": "mathsgod/epost-client",
+    "name": "hostlink/epost-client",
     "description": "epost client",
     "type": "library",
     "require-dev": {
