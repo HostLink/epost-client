@@ -32,7 +32,7 @@ abstract class GQL
     public function list(array $fields)
     {
         $class = explode("\\", static::class)[1];
-        $q = new QueryList($this->gql, "list{$class}");
+        $q = new QueryList($this->gql, $class);
         $q->fields = $fields;
         $q->limit = 25;
         return $q;

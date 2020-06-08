@@ -57,14 +57,29 @@ class QueryList implements IteratorAggregate
         }
 
         $resp = $this->gql->query([
-            $this->name => $gql
+            "list{$this->name}" => $gql
         ]);
 
-        return new ArrayIterator($resp["data"][$this->name]);
+        return new ArrayIterator($resp["data"]["list{$this->name}"]);
     }
 
     public function toArray()
     {
         return iterator_to_array($this);
+    }
+
+    public function count(): int
+    {
+        $args = [];
+        if ($this->filter) {
+            $args["filter"] = $this->filter;
+        }
+
+        $resp = $this->gql->query([
+            "count{$this->name}" => [
+                "__args" => $args
+            ]
+        ]);
+        return $resp["data"]["count{$this->name}"];
     }
 }
