@@ -3,11 +3,12 @@
 namespace Epost;
 
 use ArrayIterator;
+use Countable;
 use Exception;
 use IteratorAggregate;
 use GQL\Client;
 
-class QueryList implements IteratorAggregate
+class QueryList implements IteratorAggregate, Countable
 {
 
     public $fields;
@@ -84,7 +85,7 @@ class QueryList implements IteratorAggregate
         return iterator_to_array($this);
     }
 
-    public function count(): int
+    public function count()
     {
         $args = [];
         if ($this->filter) {
