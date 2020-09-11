@@ -39,10 +39,10 @@ class API
         return $contactgroup->list($fields);
     }
 
-    public function updateContactGroup(int $contactgroup_id, array $data, array $fields = ContactGroup::DEFAULT_FIELDS)
+    public function updateContactGroup(int $contactgroup_id, array $data)
     {
         $contactgroup = new ContactGroup($this->gql);
-        return $contactgroup->update($contactgroup_id, $data, $fields);
+        return $contactgroup->update($contactgroup_id, $data);
     }
 
     //--- contact ---
@@ -58,10 +58,10 @@ class API
         return $contact->get($contact_id, $fields);
     }
 
-    public function updateContact(int $contact_id, array $data, array $fields = Contact::DEFAULT_FIELDS)
+    public function updateContact(int $contact_id, array $data)
     {
         $contact = new Contact($this->gql);
-        return $contact->update($contact_id, $data, $fields);
+        return $contact->update($contact_id, $data);
     }
 
     public function deleteContact(int $contact_id)
@@ -101,10 +101,10 @@ class API
         return $letter->delete($letter_id);
     }
 
-    public function updateLetter(int $letter_id, array $data, array $fields = Letter::DEFAULT_FIELDS)
+    public function updateLetter(int $letter_id, array $data)
     {
         $letter = new Letter($this->gql);
-        return $letter->update($letter_id, $data, $fields);
+        return $letter->update($letter_id, $data);
     }
 
     //--- Schedule ---
