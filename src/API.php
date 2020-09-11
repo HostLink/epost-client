@@ -178,7 +178,7 @@ class API
     public function listDemographic()
     {
         $obj = new Demographic($this->gql);
-        return $obj->list();
+        return $obj->list(Demographic::DEFAULT_FIELDS);
     }
 
     public function deleteDemographic(string $name)

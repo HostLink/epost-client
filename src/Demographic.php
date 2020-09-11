@@ -20,7 +20,7 @@ class Demographic extends GQL
         return $ret["data"]["addDemographic"];
     }
 
-    public function list(array $fields = self::DEFAULT_FIELDS): array
+    public function list(array $fields): array
     {
         $ret = $this->query([
             "listDemographic" => $fields
