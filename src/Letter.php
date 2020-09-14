@@ -4,7 +4,7 @@ namespace Epost;
 
 class Letter extends GQL
 {
-    const DEFAULT_FIELDS = ["letter_id" => true, "subject" => true];
+    const DEFAULT_FIELDS = ["letter_id", "subject"];
 
     public function add(string $subject, string $content)
     {
@@ -14,8 +14,7 @@ class Letter extends GQL
                     "subject" => $subject,
                     "content" => $content
                 ],
-                "letter_id" => true,
-                "subject" => true
+                "letter_id" => true
             ]
         ]);
         return $ret["data"]["addLetter"];

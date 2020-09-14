@@ -4,7 +4,7 @@ namespace Epost;
 
 class Contact extends GQL
 {
-    const DEFAULT_FIELDS = ["contact_id" => true, "contactgroup_id" => true, "name" => true, "email" => true, "phone" => true];
+    const DEFAULT_FIELDS = ["contact_id", "contactgroup_id", "name", "email", "phone"];
 
     public function add(int $contactgroup_id, string $name, string $email = null, string $phone = null)
     {
@@ -16,13 +16,9 @@ class Contact extends GQL
                     "email" => $email,
                     "phone" => $phone
                 ],
-                "contact_id" => true,
-                "name" => true,
-                "email" => true,
-                "phone" => true
+                "contact_id" => true
             ]
         ]);
         return $ret["data"]["addContact"];
     }
-
 }

@@ -4,7 +4,7 @@ namespace Epost;
 
 class Demographic extends GQL
 {
-    const DEFAULT_FIELDS = ["name" => true];
+    const DEFAULT_FIELDS = ["name"];
 
     public function add(string $name)
     {

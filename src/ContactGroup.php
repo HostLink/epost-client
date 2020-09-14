@@ -5,7 +5,7 @@ namespace Epost;
 
 class ContactGroup extends GQL
 {
-    const DEFAULT_FIELDS = ["contactgroup_id" => true, "name" => true, "canDelete" => true, "canUpdate" => true, "canView" => true];
+    const DEFAULT_FIELDS = ["contactgroup_id", "name", "canDelete", "canUpdate", "canView"];
 
     public function add(string $name, string $remark = null)
     {

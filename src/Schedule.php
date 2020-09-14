@@ -4,7 +4,7 @@ namespace Epost;
 
 class Schedule extends GQL
 {
-    const DEFAULT_FIELDS = ["schedule_id" => true, "letter_id" => true, "sender_name" => true, "sender_email" => true, "date" => true, "time" => true];
+    const DEFAULT_FIELDS = ["schedule_id", "letter_id", "sender_name", "sender_email", "date", "time"];
 
     public function add(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time): array
     {

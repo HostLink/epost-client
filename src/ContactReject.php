@@ -4,5 +4,5 @@ namespace Epost;
 
 class ContactReject extends GQL
 {
-    const DEFAULT_FIELDS = ["contactreject_id" => true, "email" => true];
+    const DEFAULT_FIELDS = ["contactreject_id", "email"];
 }

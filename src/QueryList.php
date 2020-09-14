@@ -48,9 +48,23 @@ class QueryList implements IteratorAggregate, Countable
         return $this;
     }
 
+    private function parseQueryFields(array $fields)
+    {
+        $d = [];
+        foreach ($fields as $n => $f) {
+            if (is_array($f)) {
+                $d[$n] = $this->parseQueryFields($f);
+            } else {
+                $d[$f] = true;
+            }
+        }
+        return $d;
+    }
+
+
     public function getIterator()
     {
-        $gql = $this->fields;
+        $gql = $this->parseQueryFields($this->fields);
 
         if ($this->limit) {
             $gql["__args"]["limit"] = $this->limit;

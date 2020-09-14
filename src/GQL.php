@@ -53,7 +53,12 @@ abstract class GQL
     {
         $class = explode("\\", static::class)[1];
         $_id = strtolower($class) . "_id";
-        $gql = $fields;
+
+
+        $gql = [];
+        foreach ($fields as $field) {
+            $gql[$field] = true;
+        };
         $gql["__args"] = [];
         $gql["__args"][$_id] = $id;
 
