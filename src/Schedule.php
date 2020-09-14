@@ -8,7 +8,7 @@ class Schedule extends GQL
 
     public function add(array $contactgroup_id, int $letter_id, string $sender_name, string $sender_email, string $date, string $time): array
     {
-        $gql = Schedule::DEFAULT_FIELDS;
+
 
         $gql["__args"] = [
             "contactgroup_id" => $contactgroup_id,
@@ -18,6 +18,8 @@ class Schedule extends GQL
             "date" => $date,
             "time" => $time
         ];
+
+        $gql["schedule_id"] = true;
 
         $ret = $this->subscription([
             "addSchedule" => $gql
