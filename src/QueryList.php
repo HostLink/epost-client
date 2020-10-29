@@ -44,7 +44,7 @@ class QueryList implements IteratorAggregate, Countable
 
     public function orderBy(array $order)
     {
-        $this->orderby[] = $order;
+        $this->orderby = $order;
         return $this;
     }
 
