@@ -49,16 +49,26 @@ abstract class GQL
         return $resp["data"]["delete{$class}"];
     }
 
+    private function parseQueryFields(array $fields)
+    {
+        $d = [];
+        foreach ($fields as $n => $f) {
+            if (is_array($f)) {
+                $d[$n] = $this->parseQueryFields($f);
+            } else {
+                $d[$f] = true;
+            }
+        }
+        return $d;
+    }
+
     public function get(int $id, array $fields)
     {
         $class = explode("\\", static::class)[1];
         $_id = strtolower($class) . "_id";
 
 
-        $gql = [];
-        foreach ($fields as $field) {
-            $gql[$field] = true;
-        };
+        $gql = $this->parseQueryFields($fields);
         $gql["__args"] = [];
         $gql["__args"][$_id] = $id;
 
@@ -73,7 +83,7 @@ abstract class GQL
 
         return $resp["data"]["get{$class}"];
     }
-
+    
     public function __construct(Client $gql)
     {
         $this->gql = $gql;
